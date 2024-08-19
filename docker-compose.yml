@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend-build
+    ports:
+      - "5000:5000"
+    working_dir: /frontend
+    command: serve -s build -l 5000
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend-build
+    ports:
+      - "5001:5001"
+    working_dir: /backend
+    command: node index.js 

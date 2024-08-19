@@ -1,0 +1,216 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* Import custom font */
+@font-face {
+  font-family: 'Geist';
+  src: url('font/GeistVF.woff2') format('woff2'),
+       url('font/GeistVF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Basic reset and global styles */
+body {
+  margin: 0;
+  font-family: 'Geist', sans-serif;
+  color: #e0e0e0 !important;
+  background-color: #121212 !important; /* Dark background */
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full viewport height */
+}
+
+h1, h2 {
+  margin: 0;
+  color: #e0e0e0;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+input[type="url"] {
+  padding: 0.5rem;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background-color: #1e1e1e !important;
+  color: #e0e0e0;
+  outline: none;
+}
+
+input[type="url"]::placeholder {
+  color: #888;
+}
+
+button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 25px !important; /* Rounder button */
+  background-color: #000000;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 1rem 0; /* Margin to separate from other elements */
+  display: flex;
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+}
+
+button:hover {
+  background-color: darkgray;
+  color: black;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Layout and styling */
+.main-container {
+  max-width: 900px;
+  margin: 2rem;
+  padding: 1rem;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Add shadow effect */
+}
+
+.metadata-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center; /* Center button and form elements */
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.input-wrapper {
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 500px; /* Adjust as needed */
+}
+
+.alert {
+  color: #ff6f6f;
+  background-color: #2c2c2c;
+  padding: 0.5rem;
+  border-radius: 4px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.card-output {
+  margin-top: 2rem;
+}
+
+.loading {
+  color: #e7afaf;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animation for card grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  opacity: 0; /* Initially hidden */
+  animation: fadeIn 2s forwards; /* Apply fade-in animation with longer duration */
+}
+
+.card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Add shadow effect */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px); /* Lift the card up */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7); /* Enhance shadow */
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  margin: 0.5rem;
+}
+
+.card p {
+  padding: 0 0.5rem 0.5rem;
+}
+
+.card .alert {
+  color: #ff6f6f;
+  background-color: #2c2c2c;
+  margin: 0;
+  padding: 0.5rem;
+  text-align: center;
+}
