@@ -21,7 +21,7 @@ function App() {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5001/fetch-metadata', { urls });
+      const response = await axios.post('https://localhost:5000/fetch-metadata', { urls });
       setMetadata(response.data);
     } catch (err) {
       setError('Failed to fetch metadata. Please try again.');

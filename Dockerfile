@@ -11,9 +11,6 @@ RUN npm install
 # Copy the rest of the frontend code
 COPY frontend ./
 
-# Install global dependencies if needed (e.g., serve)
-RUN npm install -g serve
-
 # Build the frontend application
 RUN npm run build
 
