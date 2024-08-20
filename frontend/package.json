@@ -16,10 +16,11 @@
     "react-scripts": "5.0.1",
     "serve": "^14.2.3",
     "ts-jest": "^29.2.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "mkcert": "^3.2.0"
   },
   "scripts": {
-    "start": "set HTTPS=true&&set SSL_CRT_FILE=./../certs/cert.crt&&set SSL_KEY_FILE=./../certs/cert.key&&react-scripts start",
+    "start": "export HTTPS=true SSL_CRT_FILE=./certs/cert.crt SSL_KEY_FILE=./certs/cert.key && react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",

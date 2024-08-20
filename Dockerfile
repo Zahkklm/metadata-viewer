@@ -1,6 +1,9 @@
 # Stage 1: Build the frontend
 FROM node:20 AS frontend-build
 
+# Install serve globally
+RUN npm install -g serve
+
 # Set the working directory for the frontend
 WORKDIR /frontend
 
@@ -10,6 +13,9 @@ RUN npm install
 
 # Copy the rest of the frontend code
 COPY frontend ./
+
+# Copy certificates
+COPY certs /frontend/certs
 
 # Build the frontend application
 RUN npm run build
@@ -27,15 +33,8 @@ RUN npm install
 # Copy the rest of the backend code
 COPY backend ./
 
-# Install global packages
-RUN npm install -g mkcert serve
-
-# Create certification files after installation of global packages
-WORKDIR /certs
-RUN mkcert create-ca
-RUN mkcert create-cert
-
-WORKDIR /
+# Copy certificates
+COPY certs /certs
 
 # Stage 3: Final image
 FROM node:20
@@ -46,18 +45,16 @@ RUN npm install -g serve
 # Create directories for frontend and backend
 RUN mkdir -p /frontend /backend /certs
 
-# Copy frontend build output
+# Copy frontend build output and certificates
 COPY --from=frontend-build /frontend/build /frontend
+COPY --from=frontend-build /frontend/certs /frontend/certs
 
-# Copy backend code
+# Copy backend code and certificates
 COPY --from=backend-build /backend /backend
 COPY --from=backend-build /certs /certs
-
-# Set working directory to backend
-WORKDIR /backend
 
 # Expose ports
 EXPOSE 3000 5000
 
 # Start both frontend and backend servers
-CMD ["sh", "-c", "serve -s /frontend -l 3000 & node --env-file=./../.env server.js"]
+CMD ["sh", "-c", "serve -s /frontend -l 3000 --ssl-cert /frontend/certs/cert.crt --ssl-key /frontend/certs/cert.key & node --env-file=./../.env /backend/server.js"]

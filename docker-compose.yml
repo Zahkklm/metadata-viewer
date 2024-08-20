@@ -1,4 +1,4 @@
-version: "3"
+version: '3.8'
 
 services:
   frontend:
@@ -9,7 +9,7 @@ services:
     ports:
       - "3000:3000"
     working_dir: /frontend
-    command: serve -s build -l 3000
+    command: npm start
 
   backend:
     build:
@@ -19,4 +19,4 @@ services:
     ports:
       - "5000:5000"
     working_dir: /backend
-    command: node index.js
+    command: node --env-file=./.env server.js
