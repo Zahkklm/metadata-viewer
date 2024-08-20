@@ -27,6 +27,10 @@ RUN npm install
 # Copy the rest of the backend code
 COPY backend ./
 
+# Install root directory package.json dependencies for dev environment
+WORKDIR /
+RUN npm install  
+
 # Stage 3: Final image
 FROM node:20
 

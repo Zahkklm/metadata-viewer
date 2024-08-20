@@ -1,72 +1,59 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import './App.css';
+import React, { useState } from "react";
+import axios from "axios";
+import "./App.css";
+import MetadataForm from "./components/MetadataForm";
+import MetadataGrid from "./components/MetadataGrid";
 
+// App component is the main entry point of the application
 function App() {
-  const [urls, setUrls] = useState(['', '', '']);
+  // State to manage URLs input by the user
+  const [urls, setUrls] = useState(["", "", ""]);
+  // State to manage metadata fetched from the server
   const [metadata, setMetadata] = useState([]);
+  // State to manage loading state during data fetch
   const [loading, setLoading] = useState(false);
+  // State to manage errors during data fetch
   const [error, setError] = useState(null);
 
+  // Function to handle changes in URL input fields
   const handleChange = (index, value) => {
     const newUrls = [...urls];
     newUrls[index] = value;
     setUrls(newUrls);
   };
 
+  // Function to handle form submission and fetch metadata
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(null);
-    setMetadata([]);
-    setLoading(true);
+    setError(null); // Reset error state
+    setMetadata([]); // Clear previous metadata
+    setLoading(true); // Set loading state to true
 
     try {
-      const response = await axios.post('https://localhost:5000/fetch-metadata', { urls });
-      setMetadata(response.data);
+      // Make a POST request to fetch metadata
+      const response = await axios.post(
+        "https://localhost:5000/fetch-metadata",
+        { urls },
+      );
+      setMetadata(response.data); // Update metadata state with response data
     } catch (err) {
-      setError('Failed to fetch metadata. Please try again.');
+      setError("Failed to fetch metadata. Please try again."); // Handle errors
     } finally {
-      setLoading(false);
+      setLoading(false); // Reset loading state
     }
   };
 
   return (
     <div className="main-container">
-      <div className="metadata-form">
-        <h1 className="title">Metadata Viewer</h1>
-        <form onSubmit={handleSubmit}>
-          {urls.map((url, index) => (
-            <div key={index} className="input-wrapper">
-              <input
-                type="url"
-                placeholder={`Enter URL ${index + 1}`}
-                value={url}
-                onChange={(e) => handleChange(index, e.target.value)}
-                required
-              />
-            </div>
-          ))}
-          <button type="submit">Fetch Metadata</button>
-        </form>
-        {error && <div className="alert">{error}</div>}
-      </div>
-
-      <div className="card-output" data-testid="card-output-success">
-        {loading ? (
-          <div className="loading">Loading...</div>
-        ) : metadata.length > 0 ? (
-          <div className="card-grid">
-            {metadata.map((data, index) => (
-              <div className="card" key={index}>
-                <img src={data.image || 'https://via.placeholder.com/300x200'} alt={data.title || 'No title found'} />
-                <h2>{data.title || 'No title found'}</h2>
-                <p>{data.description || 'No description found'}</p>
-                {data.error && <div className="alert">{data.error}</div>}
-              </div>
-            ))}
-          </div>
-        ) : null}
-      </div>
+      {/* Render MetadataForm component */}
+      <MetadataForm
+        urls={urls}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        error={error}
+      />
+      {/* Render MetadataGrid component */}
+      <MetadataGrid metadata={metadata} loading={loading} />
     </div>
   );
 }

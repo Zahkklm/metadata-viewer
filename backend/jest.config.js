@@ -1,4 +1,4 @@
 module.exports = {
-  preset: 'jest-environment-node',
-  testEnvironment: 'node',
+  preset: "jest-environment-node",
+  testEnvironment: "node",
 };
