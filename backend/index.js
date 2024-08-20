@@ -1,20 +1,20 @@
-const fs = require('fs');
-const https = require('https');
-const express = require('express');
-const axios = require('axios');
-const cheerio = require('cheerio');
-const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
-const cors = require('cors');
-const validator = require('validator');
+import fs from 'fs';
+import https from 'https';
+import express from 'express';
+import axios from 'axios';
+import * as cheerio from 'cheerio';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+import cors from 'cors';
+import validator from 'validator';
 
 const app = express();
 const PORT = process.env.BACKEND_PORT || 5000;
 
 // Load SSL certificate and key
 const options = {
-    key: fs.readFileSync('./../cert.key'), // Replace with your key path
-    cert: fs.readFileSync('./../cert.crt'), // Replace with your certificate path
+    key: fs.readFileSync(new URL('./../cert.key', import.meta.url)), 
+    cert: fs.readFileSync(new URL('./../cert.crt', import.meta.url)), 
 };
 
 // Security middleware
@@ -31,6 +31,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Rate limiting
+
 /*
 const limiter = rateLimit({
     windowMs: 1000, // 1 second window
@@ -56,6 +57,7 @@ app.post('/fetch-metadata', async (req, res) => {
     }
 
     try {
+        let statusCode;
         const metadata = await Promise.all(urls.map(async (url) => {
             try {
                 const { data } = await axios.get(url, { timeout: 5000 }); // Timeout after 5 seconds
@@ -63,21 +65,42 @@ app.post('/fetch-metadata', async (req, res) => {
                 const title = $('title').text();
                 const description = $('meta[name="description"]').attr('content');
                 const image = $('meta[property="og:image"]').attr('content');
-                console.log( { url, title, description, image } );
+                statusCode = 200;
                 return { url, title, description, image };
             } catch (error) {
-                return { url, error: 'Failed to fetch metadata' };
+                if (error.code === 'ECONNABORTED') {
+                    // Timeout error
+                    statusCode = 429;
+                    return { url, error: 'Failed to fetch metadata: Request timed out' };
+                } else if (error.response) {
+                    // HTTP response errors
+                    statusCode = error.response.statusCode;
+                    return { url, error: `Failed to fetch metadata: ${error.response.status}` };
+                } else if (error.request) {
+                    // Network errors
+                    statusCode = error.response.statusCode;
+                    return { url, error: 'Failed to fetch metadata: Network error' };
+                } else {
+                    // Other errors
+                    statusCode = error.response.statusCode;
+                    return { url, error: 'Failed to fetch metadata: Unknown error' };
+                }
             }
         }));
 
-        res.json(metadata);
+        if(statusCode !== undefined){
+            res.status(statusCode).json(metadata); }
     } catch (error) {
         console.error('Server error:', error); // Log the error for debugging
         res.status(500).json({ error: 'Server error' });
     }
 });
 
-// Create HTTPS server
-https.createServer(options, app).listen(PORT, () => {
-    console.log(`Server running securely on https://localhost:${PORT}`);
-});
+if (import.meta.url === new URL('file://' + process.argv[1]).href) {
+    // Create HTTPS server
+    https.createServer(options, app).listen(PORT, () => {
+        console.log(`Server running securely on https://localhost:${PORT}`);
+    });
+}
+
+export default app;

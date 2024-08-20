@@ -51,7 +51,7 @@ function App() {
         {error && <div className="alert">{error}</div>}
       </div>
 
-      <div className="card-output">
+      <div className="card-output" data-testid="card-output-success">
         {loading ? (
           <div className="loading">Loading...</div>
         ) : metadata.length > 0 ? (
