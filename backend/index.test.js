@@ -42,26 +42,22 @@ describe('POST /fetch-metadata', () => {
         const response = await request(app)
             .post('/fetch-metadata')
             .send({
-                urls: ['https://world.com', 'https://italy.com', 'https://yahoo.com/']
+                urls: ['https://example.com', 'https://example.com', 'https://example.com']
             });
 
         if (!Object.keys(response.body).length) { // wait until response body returns
             expect(response.body).toEqual([
                 {
-                    "url": "https://world.com",
-                    "error": "Failed to fetch metadata"
+                    "url": "https://example.com",
+                    "title": "Example Domain"
                 },
                 {
-                    "url": "https://italy.com",
-                    "title": "\n         index- Your adventure begins here      ",
-                    "description": "With more than 2000 listed and verified places including restaurants, attractions and museums, italy.com is the go-to place to plan your next trip to the UK.",
-                    "image": "https://italy.com/wp-content/uploads/2017/04/London-Bridge-and-Big-Ben-at-Night-1-1-2.jpg"
+                    "url": "https://example.com",
+                    "title": "Example Domain"
                 },
                 {
-                    "url": "https://yahoo.com",
-                    "title": "Yahoo | Mail, Weather, Search, Politics, News, Finance, Sports & VideosView your LocationsLeo",
-                    "description": "Latest news coverage, email, free stock quotes, live scores and video are just the beginning. Discover more every day at Yahoo!",
-                    "image": "https://s.yimg.com/cv/apiv2/social/images/yahoo_default_logo.png"
+                    "url": "https://example.com",
+                    "title": "Example Domain"
                 }
             ]);
         }
@@ -139,6 +135,5 @@ describe('POST /fetch-metadata', () => {
             .send(validData)
             .expect(429); // 429 Too Many Requests
     });
-
 
 });

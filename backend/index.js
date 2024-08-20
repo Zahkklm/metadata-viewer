@@ -32,13 +32,13 @@ app.use(cors(corsOptions));
 
 // Rate limiting
 
-/*
+
 const limiter = rateLimit({
     windowMs: 1000, // 1 second window
     max: 5, // Limit each IP to 5 requests per second
 });
 app.use(limiter);
-*/
+
 
 // Middleware to parse JSON bodies
 app.use(express.json());
