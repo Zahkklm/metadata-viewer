@@ -32,7 +32,7 @@ function App() {
     try {
       // Make a POST request to fetch metadata
       const response = await axios.post(
-        "https://localhost:5000/fetch-metadata",
+        "http://localhost:5000/fetch-metadata",
         { urls },
       );
       setMetadata(response.data); // Update metadata state with response data

@@ -20,7 +20,7 @@
     "mkcert": "^3.2.0"
   },
   "scripts": {
-    "start": "export HTTPS=true SSL_CRT_FILE=./certs/cert.crt SSL_KEY_FILE=./certs/cert.key && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",
