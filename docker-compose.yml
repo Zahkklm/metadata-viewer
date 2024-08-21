@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
       target: frontend-build
     ports:
-      - "3000:80"
+      - "80:80"
     working_dir: /frontend
     command: npm start
 

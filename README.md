@@ -1,4 +1,4 @@
-## 1. Clone the project 
+## 1. Clone the project
 
 ```bash
 git clone https://github.com/Zahkklm/metadata-viewer.git 
@@ -38,4 +38,4 @@ cd frontend && npm test
 
 ## 
 
-Demo of this application is accessible at: http://158.180.229.76:3000/
+Demo of this application is accessible at: http://158.180.229.76:80/

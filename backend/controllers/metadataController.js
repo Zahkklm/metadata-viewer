@@ -16,6 +16,7 @@ export const fetchMetadata = async (req, res) => {
 
     try {
         let statusCode;
+        console.log("controller.js");
         const metadata = await Promise.all(urls.map(async (url) => {
             try {
                 const { data } = await axios.get(url, { timeout: 5000 }); // Timeout after 5 seconds
@@ -26,6 +27,8 @@ export const fetchMetadata = async (req, res) => {
                 statusCode = 200;
                 return { url, title, description, image };
             } catch (error) {
+                console.error('An error occurred:', error.message);
+                console.error('Stack trace:', error.stack);
                 if (error.code === 'ECONNABORTED') {
                     // Timeout error
                     statusCode = 429;

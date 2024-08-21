@@ -20,7 +20,7 @@ app.disable('x-powered-by');
 app.use(cors(corsOptions));
 
 // Rate limiting
-// app.use(rateLimitConfig); // Uncomment if you want to enable rate limiting
+app.use(rateLimitConfig); // Uncomment if you want to enable rate limiting
 
 // Middleware to parse JSON bodies
 app.use(express.json());

@@ -37,6 +37,7 @@ function App() {
       );
       setMetadata(response.data); // Update metadata state with response data
     } catch (err) {
+      console.log('fetching ERROR');
       setError("Failed to fetch metadata. Please try again."); // Handle errors
     } finally {
       setLoading(false); // Reset loading state

@@ -1,5 +1,5 @@
 const corsOptions = {
-    origin: ['http://localhost'], // Change from https to http
+    origin: ['http://158.180.229.76', 'http://localhost'], 
     optionsSuccessStatus: 200,
 };
 

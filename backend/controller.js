@@ -22,6 +22,7 @@ export async function fetchMetadata(req, res) {
     const metadata = await Promise.all(
       urls.map(async (url) => {
         try {
+          console.log("controller.js");
           const { data } = await axios.get(url, { timeout: 5000 }); // Timeout after 5 seconds
           const $ = cheerio.load(data);
           const title = $("title").text();
@@ -30,6 +31,8 @@ export async function fetchMetadata(req, res) {
           statusCode = 200;
           return { url, title, description, image };
         } catch (error) {
+          console.error('An error occurred:', error.message);
+          console.error('Stack trace:', error.stack);
           if (error.code === "ECONNABORTED") {
             // Handle timeout error
             statusCode = 429;
