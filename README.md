@@ -33,7 +33,7 @@ cd frontend && npm test
 
 For backend:
 ```bash
-cd frontend && npm test
+cd backend && npm test
 ```
 
 ## 
