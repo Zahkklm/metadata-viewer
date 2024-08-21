@@ -1,3 +1,7 @@
+## Requirements 
+
+[![Docker](https://wiki.deimos.fr/images/5/55/Docker-logo.png 'Docker')](https://www.docker.com/)
+
 ## 1. Clone the project
 
 ```bash
@@ -40,4 +44,4 @@ cd backend && npm test
 
 Demo of this application is accessible at: http://158.180.229.76/
 
-Example input: `http://gmail.com`
+Example input: `https://gmail.com`
