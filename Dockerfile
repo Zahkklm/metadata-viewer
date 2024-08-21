@@ -46,7 +46,7 @@ COPY --from=frontend-build /frontend/build /frontend
 COPY --from=backend-build /backend /backend
 
 # Expose ports
-EXPOSE 3000 5000
+EXPOSE 80 5000
 
 # Start both frontend and backend servers
-CMD ["sh", "-c", "serve -s /frontend -l 3000 & node --env-file=./.env /backend/server.js"]
+CMD ["sh", "-c", "serve -s /frontend -l 80 & node --env-file=./.env /backend/index.js"]

@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
       target: frontend-build
     ports:
-      - "3000:3000"
+      - "3000:80"
     working_dir: /frontend
     command: npm start
 
@@ -19,4 +19,4 @@ services:
     ports:
       - "5000:5000"
     working_dir: /backend
-    command: node --env-file=./.env server.js
+    command: node --env-file=./.env index.js
