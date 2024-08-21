@@ -1,7 +1,3 @@
-## Requirements 
-
-[![Docker](https://wiki.deimos.fr/images/5/55/Docker-logo.png 'Docker')](https://www.docker.com/)
-
 ## 1. Clone the project
 
 ```bash
