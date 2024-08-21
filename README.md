@@ -40,4 +40,4 @@ cd backend && npm test
 
 Demo of this application is accessible at: http://158.180.229.76/
 
-Example input: `https://gmail.com`
+Example input: `https://youtube.com`
